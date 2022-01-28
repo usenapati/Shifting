@@ -25,6 +25,6 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
         transform.position += transform.forward * dir[1] * speed * Time.deltaTime;
-        transform.position += transform.right * dir[0] * speed * Time.deltaTime;
+        transform.position -= transform.right * dir[0] * speed * Time.deltaTime;
     }
 }
