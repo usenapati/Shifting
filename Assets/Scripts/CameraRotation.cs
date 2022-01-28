@@ -22,7 +22,6 @@ public class CameraRotation : MonoBehaviour
         controls.Movement.Sight.Enable();
         horiz = transform.eulerAngles.y;
         vert = transform.eulerAngles.x;
-        Debug.Log(vert + " " + horiz);
     }
 
     // Update is called once per frame
