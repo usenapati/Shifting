@@ -22,14 +22,18 @@ public class CameraRotation : MonoBehaviour
         controls.Movement.Sight.Enable();
         horiz = transform.eulerAngles.y;
         vert = transform.eulerAngles.x;
+        Debug.Log(vert + " " + horiz);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        horiz += rotate.x * sensitivity * Time.deltaTime;
-        vert -= rotate.y * sensitivity * Time.deltaTime;
-        vert = Mathf.Clamp(vert, yMin, yMax);
+        if (Time.timeSinceLevelLoad > 1)
+        {
+            horiz += rotate.x * sensitivity * Time.deltaTime;
+            vert -= rotate.y * sensitivity * Time.deltaTime;
+            vert = Mathf.Clamp(vert, yMin, yMax);
+        }
         transform.eulerAngles = new Vector3(vert, horiz, 0);
     }
 }
