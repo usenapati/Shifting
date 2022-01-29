@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,9 +17,21 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
         player = GetComponent<Rigidbody>();
         controls = new PlayerControls();
-        controls.Movement.Movement.performed += ctx => dir = ctx.ReadValue<Vector2>();
-        controls.Movement.Movement.canceled += ctx => dir = Vector2.zero;
+        controls.Movement.Movement.performed += Movement;
+        controls.Movement.Movement.canceled += Movement;
         controls.Movement.Movement.Enable();
+    }
+    private void Movement(CallbackContext ctx)
+    {
+        dir = ctx.ReadValue<Vector2>();
+        if (dir == Vector2.zero)
+        {
+            player.isKinematic = true;
+        } 
+        else
+        {
+            player.isKinematic = false;
+        }
     }
 
     void FixedUpdate()
