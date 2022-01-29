@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,61 +9,54 @@ public class PickupV2 : MonoBehaviour
     private GameObject heldObj;
     public float pickUpRange = 5;
     public Transform holdParent;
-    public float moveForce = 250;
+    public float moveForce = 20;
 
-    // Update is called once per frame
-    void Update()
+    private PlayerControls controls;
+    private InputAction pickupControls;
+
+
+    private void Awake()
     {
-        if (Mouse.current.leftButton.isPressed)
-        {
-            if (heldObj == null) {
-                RaycastHit hit;
-                if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
-                {
-                    pickupObject(hit.transform.gameObject);
-                }
-            }
-            else
-            {
-                dropObject();
-            }
-        }
-        if (heldObj != null)
-        {
-            moveObject();
-        }
+        controls = new PlayerControls();
     }
 
-    void pickupObject(GameObject pickObj)
+    private void OnEnable()
     {
-        if (pickObj.GetComponent<Rigidbody>())
-        {
-            Rigidbody objRig = pickObj.GetComponent<Rigidbody>();
-            objRig.useGravity = false;
-            objRig.drag = 10;
+        controls.Pickup.PickupDrop.performed += pickUp;
+        controls.Pickup.PickupDrop.Enable();
+    }
 
-            objRig.transform.parent = holdParent;
-            heldObj = pickObj;
+    private void OnDisable()
+    {
+        controls.Pickup.PickupDrop.Disable();
+    }
+
+    
+
+    private void pickUp(InputAction.CallbackContext obj)
+    {
+        //Debug.Log("pick up!");
+        if (heldObj == null)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, pickUpRange))
+              {
+                Rigidbody pickupObjRig = hit.transform.gameObject.GetComponent<Rigidbody>();
+                pickupObjRig.transform.position = holdParent.transform.position;
+                pickupObjRig.useGravity = false;
+                pickupObjRig.drag = 10;
+                pickupObjRig.transform.parent = holdParent;
+                heldObj = pickupObjRig.transform.gameObject;
+              }
+        }
+        else
+        {
+            Rigidbody pickedUpObj = heldObj.GetComponent<Rigidbody>();
+            pickedUpObj.useGravity = true;
+            pickedUpObj.drag = 1;
+
+            heldObj.transform.parent = null;
+            heldObj = null;
         }
     }
-
-    void moveObject()
-    {
-        if (Vector3.Distance(heldObj.transform.position, holdParent.position) > 0.1f)
-        {
-            Vector3 moveDirection = (holdParent.position - heldObj.transform.position);
-            heldObj.GetComponent<Rigidbody>().AddForce(moveDirection * moveForce);
-        }
-    }
-
-    void dropObject()
-    {
-        Rigidbody heldRig = heldObj.GetComponent<Rigidbody>();
-        heldRig.useGravity = true;
-        heldRig.drag = 1;
-
-        heldObj.transform.parent = null;
-        heldObj = null;
-    }
-
 }
