@@ -18,7 +18,7 @@ public class EventMovement : EnemyMovement
         {
             if (nextPoint == Vector3.zero && !travelling && !waiting)
             {
-                if (i < orderedPoints.Count - 1)
+                if (i < orderedPoints.Count)
                 {
                     SetDestination(orderedPoints[i].transform.position);
                     i++;
@@ -29,7 +29,7 @@ public class EventMovement : EnemyMovement
             }
             else if (travelling && agent.remainingDistance < 1.0f)
             {
-                StopPatrol();
+                ReachDestination();
             }
         }
     }
