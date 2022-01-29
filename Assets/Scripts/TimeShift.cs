@@ -7,6 +7,7 @@ public class TimeShift : MonoBehaviour
     // Level Origin
     public Transform origin;
     // Track X Distance
+    public float xDistance;
     // Player Movement Object
     PlayerMovement playerMovement;
     // Player Controls
@@ -35,6 +36,7 @@ public class TimeShift : MonoBehaviour
         {
             Debug.Log("TIME TRAVELLED");
             TimeTravel();
+            timeTravelled = false;
         }
     }
 
@@ -42,8 +44,18 @@ public class TimeShift : MonoBehaviour
     {
         // Switch Time Bool
         isInPast = !isInPast;
-        Debug.Log("Past: " + isInPast + " Future: " + !isInPast);
+        
         // Set Player's position
+        if (isInPast)
+        {
+            transform.position = transform.position + new Vector3(-xDistance, 0, 0);
+        }
+        else
+        {
+            transform.position = transform.position + new Vector3(xDistance, 0, 0);
+        }
+        
         // Console Log which period player is in
+        Debug.Log("Past: " + isInPast + " Future: " + !isInPast);
     }
 }
