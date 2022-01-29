@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PickupV2 : MonoBehaviour
 {
-    private GameObject heldObj;
+    [HideInInspector]
+    public GameObject heldObj;
 
     public GameObject player;
     public float pickUpRange = 5;
