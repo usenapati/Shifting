@@ -13,11 +13,13 @@ public class EnemySight : MonoBehaviour
     public bool spotted;
     public Vector3 lastPos = Vector3.zero;
     public Slider sight;
+    public float sightTime = 2.5f;
     float viewAdjust;
     private void Start()
     {
         movement = GetComponent<EnemyMovement>();
         viewAdjust = GetComponent<CapsuleCollider>().height / 4;
+        sight.maxValue = sightTime;
     }
     private void FixedUpdate()
     {
