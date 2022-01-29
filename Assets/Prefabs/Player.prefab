@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 8663859471974315032}
   - component: {fileID: 8663859471974315039}
   - component: {fileID: 8663859471974315044}
+  - component: {fileID: 975675683639108241}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -159,6 +160,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   jumpForce: 300
+--- !u!114 &975675683639108241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8663859471974315038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a4fd2476c2d9d42bebf585ed5535a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  origin: {fileID: 0}
+  xDistance: 0
+  isInPast: 0
 --- !u!1 &8663859472341480949
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +203,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8663859472341480949}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.189}
+  m_LocalPosition: {x: 0, y: 0.637, z: 0.189}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8223537791324881340}
