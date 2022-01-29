@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class TimeShift : MonoBehaviour
 {
+    //future empty object
+    public GameObject future;
     // Level Origin
     public Transform origin;
     // Track X Distance
-    public float xDistance;
+    public float distance;
     // Player Movement Object
     PlayerMovement playerMovement;
     // Player Controls
@@ -44,15 +46,16 @@ public class TimeShift : MonoBehaviour
     {
         // Switch Time Bool
         isInPast = !isInPast;
-        
+        Vector3 dir = (future.transform.position - origin.transform.position).normalized;
+        dir.y = 0;
         // Set Player's position
         if (isInPast)
         {
-            transform.position = transform.position + new Vector3(-xDistance, 0, 0);
+            transform.position = transform.position + dir*-distance;
         }
         else
         {
-            transform.position = transform.position + new Vector3(xDistance, 0, 0);
+            transform.position = transform.position + dir*distance;
         }
         
         // Console Log which period player is in
