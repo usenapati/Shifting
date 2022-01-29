@@ -1499,6 +1499,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   origin: {fileID: 52795894}
+  xDistance: 32
   isInPast: 0
 --- !u!1 &450990004
 GameObject:
