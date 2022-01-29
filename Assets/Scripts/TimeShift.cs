@@ -42,6 +42,25 @@ public class TimeShift : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "AntiTimeShiftZone")
+        {
+            Debug.Log("Entered Anti TimeShift Zone");
+            this.enabled = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "AntiTimeShiftZone")
+        {
+            Debug.Log("Exited Anti TimeShift Zone");
+            timeTravelled = false;
+            this.enabled = true;
+        }
+    }
+
     void TimeTravel()
     {
         // Switch Time Bool
@@ -51,13 +70,13 @@ public class TimeShift : MonoBehaviour
         // Set Player's position
         if (isInPast)
         {
-            transform.position = transform.position + dir*-distance;
+            transform.position = transform.position + dir * -distance;
         }
         else
         {
-            transform.position = transform.position + dir*distance;
+            transform.position = transform.position + dir * distance;
         }
-        
+
         // Console Log which period player is in
         Debug.Log("Past: " + isInPast + " Future: " + !isInPast);
     }
