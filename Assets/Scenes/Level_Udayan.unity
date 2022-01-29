@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1481,26 +1481,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 341910687}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &407283683 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8663859471974315038, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
-  m_PrefabInstance: {fileID: 604196276}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &407283690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 407283683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a4fd2476c2d9d42bebf585ed5535a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  origin: {fileID: 52795894}
-  xDistance: 32
-  isInPast: 0
 --- !u!1 &450990004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2078,6 +2058,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 975675683639108241, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
+      propertyPath: future
+      value: 
+      objectReference: {fileID: 2118660823}
+    - target: {fileID: 975675683639108241, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
+      propertyPath: origin
+      value: 
+      objectReference: {fileID: 52795894}
+    - target: {fileID: 975675683639108241, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
+      propertyPath: distance
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 975675683639108241, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
+      propertyPath: xDistance
+      value: 32
+      objectReference: {fileID: 0}
     - target: {fileID: 8663859471974315035, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
       propertyPath: m_RootOrder
       value: 0

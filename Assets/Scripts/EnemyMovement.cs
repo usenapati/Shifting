@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyMovement : MonoBehaviour
+public abstract class EnemyMovement : MonoBehaviour
 {
     public List<GameObject> points = new List<GameObject>();
-    Rigidbody enemy;
-    NavMeshAgent agent;
+    protected Rigidbody enemy;
+    protected NavMeshAgent agent;
     public bool patrol;
     public float waitTime;
-    Vector3 nextPoint;
-    bool waiting = false;
-    bool travelling = false;
+    protected Vector3 nextPoint;
+    protected bool waiting = false;
+    protected bool travelling = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (patrol)
+        /**if (patrol)
         {
             if (nextPoint == Vector3.zero && !travelling && !waiting)
             {
@@ -43,8 +43,24 @@ public class EnemyMovement : MonoBehaviour
                 enemy.isKinematic = true;
                 StartCoroutine(wait());
             }
-        }
+        }*/
         
+    }
+    protected void SetDestination(Vector3 point)
+    {
+        travelling = true;
+        nextPoint = point;
+        nextPoint.y = transform.position.y;
+        agent.SetDestination(nextPoint);
+        agent.isStopped = false;
+    }
+    protected void ReachDestination()
+    {
+        travelling = false;
+        waiting = true;
+        agent.isStopped = true;
+        enemy.isKinematic = true;
+        StartCoroutine(wait());
     }
     public void StopPatrol()
     {
