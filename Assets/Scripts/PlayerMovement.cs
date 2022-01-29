@@ -7,15 +7,20 @@ public class PlayerMovement : MonoBehaviour
 {
     Rigidbody player;
     PlayerControls controls;
+    CapsuleCollider collider;
     public float speed;
     public float jumpForce = 300f;
     Vector2 dir;
     float sprintMod = 1f;
-    float playerHeight;
+    float halfPlayerHeight;
+    float camHeight;
+    bool crouched = false;
     // Start is called before the first frame update
     void Start()
     {
-        playerHeight = GetComponent<CapsuleCollider>().bounds.extents.y;
+        collider = GetComponent<CapsuleCollider>();
+        halfPlayerHeight = collider.bounds.extents.y;
+        camHeight = Camera.main.transform.localPosition.y;
         dir = Vector2.zero;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -29,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         controls.Movement.Sprint.Enable();
         controls.Movement.Jump.performed += Jump;
         controls.Movement.Jump.Enable();
+        controls.Movement.Crouch.performed += Crouch;
+        controls.Movement.Crouch.Enable();
     }
     private void Movement(CallbackContext ctx)
     {
@@ -45,10 +52,29 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Jump(CallbackContext ctx)
     {
-        if (Grounded())
+        if (Grounded() && !crouched)
         {
             player.isKinematic = false;
             player.AddForce(new Vector3(0, jumpForce, 0));
+        }
+    }
+    private void Crouch(CallbackContext ctx)
+    {
+        if (!crouched)
+        {
+            Camera.main.transform.localPosition = new Vector3(Camera.main.transform.localPosition.x, 0, Camera.main.transform.localPosition.z);
+            collider.height = collider.height / 2;
+            collider.center = new Vector3(collider.center.x, -collider.height/2, collider.center.z);
+            crouched = true;
+            sprintMod /= 2;
+        }
+        else
+        {
+            Camera.main.transform.localPosition = new Vector3(Camera.main.transform.localPosition.x, camHeight, Camera.main.transform.localPosition.z);
+            collider.height = collider.height * 2;
+            collider.center = new Vector3(collider.center.x, 0, collider.center.z);
+            crouched = false;
+            sprintMod *= 2;
         }
     }
     void FixedUpdate()
@@ -59,6 +85,6 @@ public class PlayerMovement : MonoBehaviour
     }
     bool Grounded()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, playerHeight + .1f);
+        return Physics.Raycast(transform.position, -Vector3.up, halfPlayerHeight + .1f);
     }
 }
