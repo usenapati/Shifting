@@ -13,9 +13,11 @@ public class EnemySight : MonoBehaviour
     public bool spotted;
     public Vector3 lastPos = Vector3.zero;
     public Slider sight;
+    float viewAdjust;
     private void Start()
     {
         movement = GetComponent<EnemyMovement>();
+        viewAdjust = GetComponent<CapsuleCollider>().height / 4;
     }
     private void FixedUpdate()
     {
@@ -33,19 +35,25 @@ public class EnemySight : MonoBehaviour
     {
         if ((playerMask | (1 << other.gameObject.layer)) == playerMask)
         {
-            Vector3 pos = other.gameObject.transform.position;
-            Vector3 currentPos = transform.position;
+            Vector3 pos = other.transform.position;
+            Vector3 currentPos = transform.position+new Vector3(0,viewAdjust,0);
             Vector3 dirToTarget = (pos - currentPos).normalized;
+            float yDir = dirToTarget.y;
             dirToTarget.y = 0;
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
             {
                 if (CheckInRoom(pos))
                 {
-                    sight.gameObject.SetActive(true);
-                    spotted = true;
-                    movement.StopPatrol();
-                    lastPos = pos;
-                    lastPos.y = transform.position.y;
+                    dirToTarget.y = yDir;
+                    float disToTarget = Vector3.Distance(currentPos, pos);
+                    if (Physics.Raycast(new Vector3(currentPos.x, currentPos.y + viewAdjust, currentPos.z), dirToTarget, disToTarget, playerMask))
+                    {
+                        sight.gameObject.SetActive(true);
+                        spotted = true;
+                        movement.StopPatrol();
+                        lastPos = pos;
+                        lastPos.y = transform.position.y;
+                    }
                 }
             }
         }
@@ -55,30 +63,47 @@ public class EnemySight : MonoBehaviour
         if ((playerMask | (1 << other.gameObject.layer)) == playerMask)
         {
             Vector3 pos = other.gameObject.transform.position;
-            Vector3 currentPos = transform.position;
+            Vector3 currentPos = transform.position+new Vector3(0,viewAdjust,0);
             Vector3 dirToTarget = (pos - currentPos).normalized;
+            float yDir = dirToTarget.y;
             dirToTarget.y = 0;
             if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle)
             {
                 if (CheckInRoom(pos))
                 {
-                    sight.gameObject.SetActive(true);
-                    spotted = true;
-                    movement.StopPatrol();
-                    lastPos = pos;
-                    lastPos.y = transform.position.y;
+                    dirToTarget.y = yDir;
+                    float disToTarget = Vector3.Distance(currentPos, pos);
+                    if (Physics.Raycast(currentPos, dirToTarget, disToTarget, playerMask))
+                    {
+                        sight.gameObject.SetActive(true);
+                        spotted = true;
+                        movement.StopPatrol();
+                        lastPos = pos;
+                        lastPos.y = transform.position.y;
+                    }
+                    else
+                    {
+                        Dissapeared();
+                    }
+                }
+                else
+                {
+                    Dissapeared();
                 }
             }
             else
             {
-                sight.gameObject.SetActive(false);
-                spotted = false;
-                movement.ResumePatrol();
+                Dissapeared();
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
+        Dissapeared();
+    }
+    private void Dissapeared()
+    {
+        sight.value = 0;
         sight.gameObject.SetActive(false);
         spotted = false;
         movement.ResumePatrol();
