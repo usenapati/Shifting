@@ -5553,7 +5553,7 @@ GameObject:
   - component: {fileID: 948505502}
   m_Layer: 0
   m_Name: Fork
-  m_TagString: Untagged
+  m_TagString: moveable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
   m_StaticEditorFlags: 8
@@ -10548,12 +10548,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8663859471974315039, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663859471974315039, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
       propertyPath: m_AngularDrag
       value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 8663859471974315044, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
       propertyPath: speed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8663859471974315044, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
+      propertyPath: jumpForce
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8663859472341480945, guid: 4c1489cc643248844b712ac1f07d79db, type: 3}
       propertyPath: sensitivity
