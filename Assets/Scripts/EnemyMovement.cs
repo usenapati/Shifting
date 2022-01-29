@@ -20,6 +20,8 @@ public abstract class EnemyMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         enemy = GetComponent<Rigidbody>();
         nextPoint = Vector3.zero;
+        if (!patrol)
+            enemy.isKinematic = true;
     }
 
     // Update is called once per frame
@@ -82,6 +84,7 @@ public abstract class EnemyMovement : MonoBehaviour
         enemy.isKinematic = false;
         nextPoint = Vector3.zero;
         waiting = false;
+        Debug.Log("stop wait");
     }
 
 }

@@ -17,6 +17,8 @@ public class PickupV2 : MonoBehaviour
     private PlayerControls controls;
     private InputAction pickupControls;
 
+    private Transform prevParent;
+
 
     private void Awake()
     {
@@ -49,6 +51,7 @@ public class PickupV2 : MonoBehaviour
                     pickupObjRig.transform.position = holdParent.transform.position;
                     pickupObjRig.useGravity = false;
                     pickupObjRig.drag = 10;
+                    prevParent = pickupObjRig.transform.parent;
                     pickupObjRig.transform.parent = holdParent;
                     heldObj = pickupObjRig.transform.gameObject;
                 }
@@ -60,7 +63,7 @@ public class PickupV2 : MonoBehaviour
             pickedUpObj.useGravity = true;
             pickedUpObj.drag = 1;
 
-            heldObj.transform.parent = null;
+            heldObj.transform.parent = prevParent;
             heldObj = null;
         }
     }
