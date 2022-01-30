@@ -61,7 +61,7 @@ public class TimeShift : MonoBehaviour
         }
     }
 
-    void TimeTravel()
+    public void TimeTravel()
     {
         // Switch Time Bool
         isInPast = !isInPast;
