@@ -89,6 +89,10 @@ public class PlayerMovement : MonoBehaviour
         dir.Normalize();
         transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
         player.velocity = new Vector3(0,player.velocity.y,0) + transform.forward * dir[1] * speed * sprintMod - transform.right * dir[0] * speed * sprintMod;
+        if (transform.position.y < 0)
+        {
+            GameManager.instance.RestartLevel();
+        }
     }
     bool Grounded()
     {
