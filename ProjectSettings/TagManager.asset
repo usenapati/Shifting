@@ -6,6 +6,8 @@ TagManager:
   tags:
   - moveable
   - AntiTimeShiftZone
+  - breakable
+  - breaker
   layers:
   - Default
   - TransparentFX
