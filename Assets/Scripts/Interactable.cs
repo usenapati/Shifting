@@ -10,8 +10,13 @@ public abstract class Interactable : MonoBehaviour
     public GameObject relative;
     public string interactName;
     public PickupV2 pickup;
+    protected Vector3 dist;
     private void Start()
     {
+        if (relative != null)
+        {
+            dist = relative.transform.position - transform.position;
+        }
         if (effectOther)
         {
             controls = new PlayerControls();
@@ -32,8 +37,8 @@ public abstract class Interactable : MonoBehaviour
     {
         if (relative != null)
         {
-            relative.transform.localPosition = transform.localPosition;
-            relative.transform.localEulerAngles = transform.localEulerAngles;
+            relative.transform.position = transform.position + dist;
+            relative.transform.eulerAngles = transform.eulerAngles;
         }
     }
 }
