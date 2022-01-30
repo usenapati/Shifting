@@ -14,6 +14,7 @@ public abstract class EnemyMovement : MonoBehaviour
     protected Vector3 nextPoint;
     protected bool waiting = false;
     protected bool travelling = false;
+    bool prevPatrol = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,13 +67,14 @@ public abstract class EnemyMovement : MonoBehaviour
     }
     public void StopPatrol()
     {
+        prevPatrol = patrol;
         patrol = false;
         agent.isStopped = true;
         enemy.isKinematic = true;
     }
     public void ResumePatrol()
     {
-        patrol = true;
+        patrol = prevPatrol;
         agent.isStopped = false;
         enemy.isKinematic = false;
         nextPoint = Vector3.zero;

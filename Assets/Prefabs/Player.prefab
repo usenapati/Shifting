@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 8663859471974315039}
   - component: {fileID: 8663859471974315044}
   - component: {fileID: 975675683639108241}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -221,6 +221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d18a7fba463eb4a8085acb0cf1f017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levels: []
   speed: 5
   jumpForce: 300
 --- !u!114 &975675683639108241
