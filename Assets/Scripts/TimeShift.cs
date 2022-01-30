@@ -29,7 +29,7 @@ public class TimeShift : MonoBehaviour
     float maxVal = 1f;
     bool finishedStartEffect = false;
     Vector3 dir;
-
+    public AudioManager audio;
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +60,7 @@ public class TimeShift : MonoBehaviour
             }
             if (timeTravelled && (LD.intensity.value <= minVal))
             {
-
+                audio.pastMusic();
                 transform.position = transform.position + dir * -distance;
                 LD.intensity.value = 0;
                 LD.intensity.Override(0);
@@ -76,7 +76,7 @@ public class TimeShift : MonoBehaviour
             }
             if (timeTravelled && (LD.intensity.value >= maxVal))
             {
-
+                audio.futureMusic();
                 transform.position = transform.position + dir * distance;
                 LD.intensity.value = 0;
                 LD.intensity.Override(0);
