@@ -15,6 +15,9 @@ public class EnemySight : MonoBehaviour
     public Slider sight;
     public float sightTime = 2.5f;
     float viewAdjust;
+    bool dissapeared = false;
+    float maxTimeGone = 2f;
+    float timeGone = 0f;
     private void Start()
     {
         movement = GetComponent<EnemyMovement>();
@@ -27,15 +30,24 @@ public class EnemySight : MonoBehaviour
         {
             transform.LookAt(lastPos);
             sight.value += Time.deltaTime;
-            if (sight.value == sight.maxValue)
+            if (sight.value >= sight.maxValue)
             {
-                Application.LoadLevel(Application.loadedLevel);
+                GameManager.instance.RestartLevel();
+            }
+        }
+        if (dissapeared)
+        {
+            timeGone += Time.deltaTime;
+            if (timeGone >= maxTimeGone)
+            {
+                dissapeared = false;
+                Dissapeared();
             }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
-        if ((playerMask | (1 << other.gameObject.layer)) == playerMask)
+        if (other.gameObject.tag == "Player") 
         {
             Vector3 pos = other.transform.position;
             Vector3 currentPos = transform.position+new Vector3(0,viewAdjust,0);
@@ -62,7 +74,7 @@ public class EnemySight : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if ((playerMask | (1 << other.gameObject.layer)) == playerMask)
+        if (other.gameObject.tag == "Player")
         {
             Vector3 pos = other.gameObject.transform.position;
             Vector3 currentPos = transform.position+new Vector3(0,viewAdjust,0);
@@ -83,25 +95,32 @@ public class EnemySight : MonoBehaviour
                         lastPos = pos;
                         lastPos.y = transform.position.y;
                     }
-                    else
+                    else if (spotted)
                     {
-                        Dissapeared();
+                        dissapeared = true;
+                        spotted = false;
                     }
                 }
-                else
+                else if (spotted)
                 {
-                    Dissapeared();
+                    dissapeared = true;
+                    spotted = false;
                 }
             }
-            else
+            else if (spotted)
             {
-                Dissapeared();
+                dissapeared = true;
+                spotted = false;
             }
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        Dissapeared();
+        if (spotted)
+        {
+            dissapeared = true;
+            spotted = false;
+        }
     }
     private void Dissapeared()
     {
