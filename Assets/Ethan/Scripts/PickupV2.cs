@@ -16,6 +16,7 @@ public class PickupV2 : MonoBehaviour
 
     private PlayerControls controls;
     private InputAction pickupControls;
+    private Vector3 originalScale;
 
     private Transform prevParent;
 
@@ -51,9 +52,11 @@ public class PickupV2 : MonoBehaviour
                     pickupObjRig.transform.position = holdParent.transform.position;
                     pickupObjRig.useGravity = false;
                     pickupObjRig.drag = 10;
+                    originalScale = pickupObjRig.transform.localScale;
                     prevParent = pickupObjRig.transform.parent;
                     pickupObjRig.transform.parent = holdParent;
                     heldObj = pickupObjRig.transform.gameObject;
+                    heldObj.transform.localScale = originalScale;
                 }
               }
         }
@@ -64,7 +67,9 @@ public class PickupV2 : MonoBehaviour
             pickedUpObj.drag = 1;
 
             heldObj.transform.parent = prevParent;
+            GameObject temp = heldObj;
             heldObj = null;
+            temp.transform.localScale = originalScale;
         }
     }
 
