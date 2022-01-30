@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: c88500c260927bc44bd6a6e322a3d4de
+=======
+<<<<<<< HEAD
+guid: e72b083a85a2e4c489706e2c10d2bdc8
+=======
+guid: 48c3699610ce2ed428670fa5259a9c5a
+>>>>>>> dev
+>>>>>>> dev
 timeCreated: 1425440388
 licenseType: Store
 TextScriptImporter:
