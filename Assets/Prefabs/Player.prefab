@@ -94,7 +94,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,8 +172,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a4fd2476c2d9d42bebf585ed5535a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  future: {fileID: 0}
   origin: {fileID: 0}
-  xDistance: 0
+  distance: 0
   isInPast: 0
 --- !u!1 &8663859472341480949
 GameObject:
@@ -286,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d3e53f688296a479a8f4c4a81cc63d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heldObj: {fileID: 0}
   player: {fileID: 8663859471974315038}
   pickUpRange: 5
   holdParent: {fileID: 8223537791324881340}
