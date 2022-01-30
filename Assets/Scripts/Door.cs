@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Door : Interactable
 {
+    public Vector3 rotation;
+    public Vector3 position;
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name.Equals(interactName))
         {
-            transform.localPosition = relative.transform.localPosition;
-            transform.rotation = relative.transform.rotation;
+            transform.localPosition = position;
+            transform.localEulerAngles = rotation;
             GameObject.Destroy(collision.gameObject);
             pickup.heldObj = null;
         }

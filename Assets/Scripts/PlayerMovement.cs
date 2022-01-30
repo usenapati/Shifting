@@ -5,6 +5,7 @@ using static UnityEngine.InputSystem.InputAction;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public List<Transform> levels = new List<Transform>();
     Rigidbody player;
     PlayerControls controls;
     CapsuleCollider collider;
@@ -16,8 +17,14 @@ public class PlayerMovement : MonoBehaviour
     float camHeight;
     bool crouched = false;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (GameManager.instance != null)
+        {
+            Vector3 newPos = levels[GameManager.instance.sceneLoad-1].position;
+            newPos.y = transform.position.y;
+            transform.position = newPos;
+        }
         collider = GetComponent<CapsuleCollider>();
         halfPlayerHeight = collider.bounds.extents.y;
         camHeight = Camera.main.transform.localPosition.y;
@@ -86,5 +93,10 @@ public class PlayerMovement : MonoBehaviour
     bool Grounded()
     {
         return Physics.Raycast(transform.position, -Vector3.up, halfPlayerHeight + .1f);
+    }
+    public void OnDestroy()
+    {
+        if (controls != null)
+            controls.Disable();
     }
 }
