@@ -35,6 +35,8 @@ public class PickupV2 : MonoBehaviour
     private void OnDisable()
     {
         controls.Pickup.PickupDrop.Disable();
+
+
     }
 
     
